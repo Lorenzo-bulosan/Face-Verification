@@ -33,6 +33,5 @@ def main():
     fnet.verify(image_dir_path + "/camera_2.jpg", "kian", database)
     fnet.who_is_it(image_dir_path + "/camera_0.jpg", database)
 
-
 if __name__ == '__main__':
     main()
