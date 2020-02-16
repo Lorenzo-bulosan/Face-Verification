@@ -19,6 +19,7 @@ from keras import backend as K
 from keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
 from keras.preprocessing.image import img_to_array
 import os
+import matplotlib.pyplot as plt
 
 #%% Helper functions
 def euclidean_distance(vects):
@@ -300,32 +301,41 @@ class SiameseFaceNet(object):
 #%% Main Function 
 def main():
 	
-    #From class above
+    # From class above
     fnet = SiameseFaceNet() 
 
-    #Folder paths
+    # Folder paths
     model_dir_path = './models'
-    image_dir_path = "./data/images"
+    KnownImages_dir_path = "./data/Known-Images"
+    UnknownImages_dir_path = "./data/To-Verify"
     fnet.load_model(model_dir_path)
 
-    #People to verify against
+    # Encodings of People to verify against
     database = dict()
-    database["danielle"] = [fnet.img_to_encoding(image_dir_path + "/danielle.png")]
-    database["younes"] = [fnet.img_to_encoding(image_dir_path + "/younes.jpg")]
-    database["tian"] = [fnet.img_to_encoding(image_dir_path + "/tian.jpg")]
-    database["andrew"] = [fnet.img_to_encoding(image_dir_path + "/andrew.jpg")]
-    database["kian"] = [fnet.img_to_encoding(image_dir_path + "/kian.jpg")]
-    database["dan"] = [fnet.img_to_encoding(image_dir_path + "/dan.jpg")]
-    database["sebastiano"] = [fnet.img_to_encoding(image_dir_path + "/sebastiano.jpg")]
-    database["bertrand"] = [fnet.img_to_encoding(image_dir_path + "/bertrand.jpg")]
-    database["kevin"] = [fnet.img_to_encoding(image_dir_path + "/kevin.jpg")]
-    database["felix"] = [fnet.img_to_encoding(image_dir_path + "/felix.jpg")]
-    database["benoit"] = [fnet.img_to_encoding(image_dir_path + "/benoit.jpg")]
-    database["arnaud"] = [fnet.img_to_encoding(image_dir_path + "/arnaud.jpg")]
+    database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
+    database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
+#    database["googleguy"] = [fnet.img_to_encoding(KnownImages_dir_path + "/bertrand.png")]
 
-    fnet.verify(image_dir_path + "/camera_0.jpg", "younes", database)
-    fnet.verify(image_dir_path + "/camera_2.jpg", "kian", database)
-    fnet.who_is_it(image_dir_path + "/camera_0.jpg", database)
+    # Verify if image is that person in the database
+    fnet.verify(UnknownImages_dir_path + "/person1.jpg", "lorenzo", database)
+    fnet.verify(UnknownImages_dir_path + "/person2.jpg", "karianne", database)
+#    fnet.verify(UnknownImages_dir_path + "/person3.jpg", "googleguy", database)
+    #fnet.who_is_it(image_dir_path + "/camera_0.jpg", database)
+    
+    # Set up figure
+#    fig = plt.figure('Compare images')
+#    
+#    # show first image
+#    ax = fig.add_subplot(1, 2, 1)
+#    plt.imshow(KnownImages_dir_path + "/googleguy.png")
+#    plt.axis("off")
+#    
+#    # show the second image
+#    ax = fig.add_subplot(1, 2, 2)
+#    plt.imshow(UnknownImages_dir_path + "/person3.jpg")
+#    plt.axis("off")
+#    
+#    plt.show()   
 
 if __name__ == '__main__':
     main()
