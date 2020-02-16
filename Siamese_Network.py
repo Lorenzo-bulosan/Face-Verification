@@ -306,33 +306,38 @@ def main():
 
     # Folder paths
     model_dir_path = './models'
+    fnet.load_model(model_dir_path)
     KnownImages_dir_path = "./data/Known-Images"
     UnknownImages_dir_path = "./data/To-Verify"
-    fnet.load_model(model_dir_path)
-
+  
     # Encodings of People to verify against
     database = dict()
     database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
-#    database["googleguy"] = [fnet.img_to_encoding(KnownImages_dir_path + "/bertrand.png")]
-
-    # Verify if image is that person in the database
-    fnet.verify(UnknownImages_dir_path + "/person1.jpg", "lorenzo", database)
-    fnet.verify(UnknownImages_dir_path + "/person2.jpg", "karianne", database)
-#    fnet.verify(UnknownImages_dir_path + "/person3.jpg", "googleguy", database)
-    #fnet.who_is_it(image_dir_path + "/camera_0.jpg", database)
+    database["karianne2"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne2.jpg")]
+    database["googleguy"] = [fnet.img_to_encoding(KnownImages_dir_path + "/bertrand.jpg")]
     
-    # Set up figure
+    # Images to test
+    knownImage = cv2.imread(KnownImages_dir_path + "/lorenzo.jpg")
+    unknownImage = cv2.imread(UnknownImages_dir_path + "/person2.jpg") 
+        
+    # Verify if image is that person in the database
+    dist, is_valid = fnet.verify(UnknownImages_dir_path + "/filipinoGuy.jpg", "lorenzo", database, 0.20)
+    print(dist)
+    print(is_valid)
+    
+    #fnet.who_is_it(UnknownImages_dir_path + "/person3.jpg", database)
+    
+#    # Set up figure
 #    fig = plt.figure('Compare images')
 #    
-#    # show first image
-#    ax = fig.add_subplot(1, 2, 1)
-#    plt.imshow(KnownImages_dir_path + "/googleguy.png")
+#    # show images
+#    fig.add_subplot(1, 2, 1)
+#    plt.imshow(knownImage)
 #    plt.axis("off")
 #    
-#    # show the second image
-#    ax = fig.add_subplot(1, 2, 2)
-#    plt.imshow(UnknownImages_dir_path + "/person3.jpg")
+#    fig.add_subplot(1, 2, 2)
+#    plt.imshow(unknownImage)
 #    plt.axis("off")
 #    
 #    plt.show()   
