@@ -322,9 +322,15 @@ def main():
     unknownImage = UnknownImages_dir_path + "/person2.jpg"
     knownImage_float = cv2.imread(knownImage)
     unknownImage_float = cv2.imread(unknownImage) 
-        
+    knownImage_dictionaryName = os.path.basename(knownImage)  
+    knownImage_dictionaryName = os.path.splitext(knownImage_dictionaryName)[0]             
+    
     # Verify if image is that person in the database
-    dist, is_valid = fnet.verify(unknownImage, "lorenzo", database, 0.20)
+    dist, is_valid = fnet.verify(unknownImage, knownImage_dictionaryName, database, 0.20)
+    if (is_valid):
+	        veredict = 'Yes'
+    else:
+	        veredict = 'No'
     print(dist)
     print(is_valid)
     
@@ -332,14 +338,18 @@ def main():
     
     # Set up figure
     fig = plt.figure('Compare images')
-    
-    # show images
-    fig.add_subplot(1, 2, 1)
-    plt.imshow(knownImage_float)
+    fig.suptitle('Is this ' + knownImage_dictionaryName + '?: ' + veredict)
     plt.axis("off")
     
-    fig.add_subplot(1, 2, 2)
+    # show images
+    leftImage = fig.add_subplot(1, 2, 1)
+    plt.imshow(knownImage_float)
+    leftImage.title.set_text('Reference Image')
+    plt.axis("off")
+    
+    rightImage = fig.add_subplot(1, 2, 2)
     plt.imshow(unknownImage_float)
+    rightImage.title.set_text('?')
     plt.axis("off")
     
     plt.show()   
