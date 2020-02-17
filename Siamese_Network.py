@@ -297,7 +297,7 @@ class SiameseFaceNet(object):
 
         return min_dist, identity
 
-
+   
 #%% Main Function 
 def main():
 	
@@ -309,38 +309,40 @@ def main():
     fnet.load_model(model_dir_path)
     KnownImages_dir_path = "./data/Known-Images"
     UnknownImages_dir_path = "./data/To-Verify"
-  
+       
     # Encodings of People to verify against
     database = dict()
     database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
     database["karianne2"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne2.jpg")]
     database["googleguy"] = [fnet.img_to_encoding(KnownImages_dir_path + "/bertrand.jpg")]
-    
+
     # Images to test
-    knownImage = cv2.imread(KnownImages_dir_path + "/lorenzo.jpg")
-    unknownImage = cv2.imread(UnknownImages_dir_path + "/person2.jpg") 
+    knownImage = KnownImages_dir_path + "/lorenzo.jpg"
+    unknownImage = UnknownImages_dir_path + "/person2.jpg"
+    knownImage_float = cv2.imread(knownImage)
+    unknownImage_float = cv2.imread(unknownImage) 
         
     # Verify if image is that person in the database
-    dist, is_valid = fnet.verify(UnknownImages_dir_path + "/filipinoGuy.jpg", "lorenzo", database, 0.20)
+    dist, is_valid = fnet.verify(unknownImage, "lorenzo", database, 0.20)
     print(dist)
     print(is_valid)
     
     #fnet.who_is_it(UnknownImages_dir_path + "/person3.jpg", database)
     
-#    # Set up figure
-#    fig = plt.figure('Compare images')
-#    
-#    # show images
-#    fig.add_subplot(1, 2, 1)
-#    plt.imshow(knownImage)
-#    plt.axis("off")
-#    
-#    fig.add_subplot(1, 2, 2)
-#    plt.imshow(unknownImage)
-#    plt.axis("off")
-#    
-#    plt.show()   
+    # Set up figure
+    fig = plt.figure('Compare images')
+    
+    # show images
+    fig.add_subplot(1, 2, 1)
+    plt.imshow(knownImage_float)
+    plt.axis("off")
+    
+    fig.add_subplot(1, 2, 2)
+    plt.imshow(unknownImage_float)
+    plt.axis("off")
+    
+    plt.show()   
 
 if __name__ == '__main__':
     main()
