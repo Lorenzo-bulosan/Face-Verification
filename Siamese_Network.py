@@ -363,6 +363,7 @@ def main():
     plt.show()   
     
     fig.savefig('face_verification_result.png')
-
+    
+    
 if __name__ == '__main__':
     main()
