@@ -351,7 +351,7 @@ def main():
     
     # Set up figure
     fig = plt.figure('Compare images')
-    fig.suptitle('Is this ' + knownImage_dictionaryName + '?: ' + veredict)
+    fig.suptitle('Is this ' + knownImage_dictionaryName + '?')
     plt.axis("off")
     
     # show images
@@ -362,10 +362,12 @@ def main():
     
     rightImage = fig.add_subplot(1, 2, 2)
     plt.imshow(unknownImage_float)
-    rightImage.title.set_text('?')
+    rightImage.title.set_text(veredict)
     plt.axis("off")
     
     plt.show()   
+    
+    fig.savefig('face_verification_result.png')
 
 if __name__ == '__main__':
     main()
