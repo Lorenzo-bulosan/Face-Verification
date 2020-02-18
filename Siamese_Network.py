@@ -19,9 +19,20 @@ from keras import backend as K
 from keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
 from keras.preprocessing.image import img_to_array
 import os
+from PIL import Image
 import matplotlib.pyplot as plt
 
 #%% Helper functions
+
+def rgb2gray(imagePath):
+        
+   #fname = os.path.basename(image)  
+   #basename_noExtension = os.path.splitext(fname)[0] 
+   #extension = os.path.splitext(fname)[1]
+   img = Image.open(imagePath).convert('L')
+   img.save(imagePath)
+   return imagePath
+
 def euclidean_distance(vects):
     x, y = vects
     return K.sqrt(K.maximum(K.sum(K.square(x - y), axis=1, keepdims=True), K.epsilon()))
@@ -59,7 +70,9 @@ class SiameseFaceNet(object):
         print('encoding: ', image_path)
         if self.vgg16_model is None:
             self.vgg16_model = self.create_vgg16_model()
-
+    
+        rgb2gray(image_path) # better results if grayscale
+    
         image = cv2.imread(image_path, 1)
         img = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
         input = img_to_array(img)
@@ -300,7 +313,7 @@ class SiameseFaceNet(object):
    
 #%% Main Function 
 def main():
-	
+
     # From class above
     fnet = SiameseFaceNet() 
 
@@ -310,23 +323,24 @@ def main():
     KnownImages_dir_path = "./data/Known-Images"
     UnknownImages_dir_path = "./data/To-Verify"
        
+
     # Encodings of People to verify against
     database = dict()
     database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
     database["karianne2"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne2.jpg")]
-    database["googleguy"] = [fnet.img_to_encoding(KnownImages_dir_path + "/bertrand.jpg")]
-
+    
     # Images to test
     knownImage = KnownImages_dir_path + "/lorenzo.jpg"
-    unknownImage = UnknownImages_dir_path + "/person2.jpg"
+    unknownImage = UnknownImages_dir_path + "/person2_hard.jpg"
+    rgb2gray(unknownImage)
     knownImage_float = cv2.imread(knownImage)
     unknownImage_float = cv2.imread(unknownImage) 
     knownImage_dictionaryName = os.path.basename(knownImage)  
     knownImage_dictionaryName = os.path.splitext(knownImage_dictionaryName)[0]             
     
     # Verify if image is that person in the database
-    dist, is_valid = fnet.verify(unknownImage, knownImage_dictionaryName, database, 0.20)
+    dist, is_valid = fnet.verify(unknownImage, knownImage_dictionaryName, database, 0.15)
     if (is_valid):
 	        veredict = 'Yes'
     else:
