@@ -24,11 +24,7 @@ import matplotlib.pyplot as plt
 
 #%% Helper functions
 
-def rgb2gray(imagePath):
-        
-   #fname = os.path.basename(image)  
-   #basename_noExtension = os.path.splitext(fname)[0] 
-   #extension = os.path.splitext(fname)[1]
+def rgb2gray(imagePath):     
    img = Image.open(imagePath).convert('L')
    img.save(imagePath)
    return imagePath
@@ -37,11 +33,9 @@ def euclidean_distance(vects):
     x, y = vects
     return K.sqrt(K.maximum(K.sum(K.square(x - y), axis=1, keepdims=True), K.epsilon()))
 
-
 def eucl_dist_output_shape(shapes):
     shape1, shape2 = shapes
     return (shape1[0], 1)
-
 
 def contrastive_loss(y_true, y_pred):
     '''Contrastive loss from Hadsell-et-al.'06
@@ -328,6 +322,7 @@ def main():
     database = dict()
     database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
+
     
     # Images to test
     knownImage = KnownImages_dir_path + "/lorenzo.jpg"
@@ -347,11 +342,11 @@ def main():
     print(dist)
     print(is_valid)
     
-    fnet.who_is_it(unknownImage, database)
+    #fnet.who_is_it(unknownImage, database)
     
     # Set up figure
     fig = plt.figure('Compare images')
-    fig.suptitle('Is this ' + knownImage_dictionaryName + '?')
+    fig.suptitle("Is this person '" + knownImage_dictionaryName + "'?")
     plt.axis("off")
     
     # show images
