@@ -328,7 +328,6 @@ def main():
     database = dict()
     database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
-    database["karianne2"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne2.jpg")]
     
     # Images to test
     knownImage = KnownImages_dir_path + "/lorenzo.jpg"
@@ -348,7 +347,7 @@ def main():
     print(dist)
     print(is_valid)
     
-    #fnet.who_is_it(UnknownImages_dir_path + "/person3.jpg", database)
+    fnet.who_is_it(unknownImage, database)
     
     # Set up figure
     fig = plt.figure('Compare images')
