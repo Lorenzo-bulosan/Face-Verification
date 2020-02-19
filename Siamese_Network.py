@@ -316,13 +316,11 @@ def main():
     fnet.load_model(model_dir_path)
     KnownImages_dir_path = "./data/Known-Images"
     UnknownImages_dir_path = "./data/To-Verify"
-       
-
+           
     # Encodings of People to verify against
     database = dict()
     database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
-
     
     # Images to test
     knownImage = KnownImages_dir_path + "/karianne.jpg"
