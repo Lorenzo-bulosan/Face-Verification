@@ -312,7 +312,7 @@ def main():
     fnet = SiameseFaceNet() 
 
     # Folder paths
-    model_dir_path = './models'
+    model_dir_path = './models_v2'
     fnet.load_model(model_dir_path)
     KnownImages_dir_path = "./data/Known-Images"
     UnknownImages_dir_path = "./data/To-Verify"
@@ -325,8 +325,8 @@ def main():
 
     
     # Images to test
-    knownImage = KnownImages_dir_path + "/lorenzo.jpg"
-    unknownImage = UnknownImages_dir_path + "/person2_hard.jpg"
+    knownImage = KnownImages_dir_path + "/karianne.jpg"
+    unknownImage = UnknownImages_dir_path + "/person1_makeup.jpg"
     rgb2gray(unknownImage)
     knownImage_float = cv2.imread(knownImage)
     unknownImage_float = cv2.imread(unknownImage) 
@@ -342,7 +342,7 @@ def main():
     print(dist)
     print(is_valid)
     
-    #fnet.who_is_it(unknownImage, database)
+    fnet.who_is_it(unknownImage, database)
     
     # Set up figure
     fig = plt.figure('Compare images')
@@ -363,7 +363,6 @@ def main():
     plt.show()   
     
     fig.savefig('face_verification_result.png')
-    
-    
+        
 if __name__ == '__main__':
     main()
