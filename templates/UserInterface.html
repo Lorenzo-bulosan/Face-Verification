@@ -9,7 +9,7 @@
 	<style type="text/css">
 
 		body{
-			background-image: url('public/background-Images/collage-2.jpg');
+			background-image: url('static/Images/collage-2.jpg');
 		}
 
 		#Main{
@@ -76,7 +76,8 @@
 	</div>
 
 	<div class="row">
-		<img src="face_verification_result.png" width="40%">
+		<img src="static/Images/face_verification_result.png" width="40%">
+		<h1>This is the result: {{dataOut}} </h1>
 	</div>
 
 <!-- jQuery library -->
@@ -93,11 +94,27 @@
     });
     
     $('#Verification-btn').on('click',function(){
+    
+	// obtain name of files    
         var knownImage_name = $('#input-knownImage').val().split('\\').pop();
         var unknownImage_name = $('#input-unknownImage').val().split('\\').pop();
         console.log('known image: "' + knownImage_name +  '"'); 
         console.log('Unknown image: "' + unknownImage_name + '"');
-    });
+        
+        // send name of files
+		$.ajax({
+		  type : 'POST',
+		  url : "/verify",
+		  data : {'data': knownImage_name},
+		  success: function(response) {
+                console.log(response);
+          },
+          error: function(error) {
+                console.log(error);
+          }
+		});
+	});
+  
 	
 </script>
 

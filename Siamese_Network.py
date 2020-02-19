@@ -306,7 +306,7 @@ class SiameseFaceNet(object):
 
    
 #%% Main Function 
-def main():
+def main(knownImage,unknownImage):
 
     # From class above
     fnet = SiameseFaceNet() 
@@ -340,7 +340,7 @@ def main():
     print(dist)
     print(is_valid)
     
-    fnet.who_is_it(unknownImage, database)
+    #fnet.who_is_it(unknownImage, database)
     
     # Set up figure
     fig = plt.figure('Compare images')
@@ -360,7 +360,7 @@ def main():
     
     plt.show()   
     
-    fig.savefig('face_verification_result.png')
+    fig.savefig('static/Images/face_verification_result.png')
         
 if __name__ == '__main__':
-    main()
+    main(knownImage,unknownImage)
