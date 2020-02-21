@@ -21,6 +21,7 @@ from keras.preprocessing.image import img_to_array
 import os
 from PIL import Image
 import matplotlib.pyplot as plt
+import datetime
 
 #%% Helper functions
 
@@ -319,7 +320,7 @@ def main(knownImage_name,unknownImage_name):
            
     # Encodings of People to verify against
     database = dict()
-    database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"lorenzo.jpg")]
+    database["Lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"lorenzo.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"karianne.jpg")]
     
     # Images to test
@@ -360,9 +361,14 @@ def main(knownImage_name,unknownImage_name):
     
     plt.show()   
     
-    fig.savefig('face_verification_result.png')
-    fig.savefig('static/Images/face_verification_result.png')
-    return veredict    
+    # Saving images (include time as a way to avoid cache problems in client side)
+    time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    imgResult = 'static/Images/'+ time + '_is_this_' + knownImage_dictionaryName + '.png'
+#    fig.savefig('face_verification_result.png')
+    fig.savefig(imgResult)
+    
+    return imgResult    
+
 #%% Change parameters here to verify
 if __name__ == '__main__':
 	 	
@@ -370,3 +376,4 @@ if __name__ == '__main__':
     unknownImage = "person1_makeup.jpg"
     
     main(knownImage,unknownImage)
+    

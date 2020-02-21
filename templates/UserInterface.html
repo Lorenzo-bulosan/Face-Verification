@@ -44,9 +44,20 @@
 		.btn-success{
 			font-size: 200%;
 		}
+		
+		.btn-danger{
+			font-size: 200%;
+			margin-bottom: 1em !important;
+		}
 
 		.row{
 			margin-bottom: 1%;
+		}
+		
+		.vertical{
+			display: flex;
+			flex-direction: vertical;
+			margin: auto;
 		}
 
 	</style>
@@ -62,23 +73,31 @@
 	<div>
 		<form action="/verify" method="post">
 			<div class="image-selection">
-				<h2>Select reference image</h2>
-				<input class="btn btn-info" type="file" name="knownImage" id="input-knownImage">				
+				<h2> Select reference image </h2>
+				<input class="btn btn-info" type="file" name="knownImage" id="input-knownImage" required>				
 			</div>
 			<div class="image-selection">
-				<h2> Select image you want to verify</h2>
-				<input class="btn btn-info" type="file" name="unknownImage" id="input-unknownImage">				
+				<h2> Select image you want to verify </h2>
+				<input class="btn btn-info" type="file" name="unknownImage" id="input-unknownImage" required>				
 			</div>
+			
+			{% if dataOut  %}
 			<div class="row">
-				<button type="submit" class="btn btn-success" id="Verification-btn"> Verify!</button>
+				<button type="button" class="btn btn-danger vertical" id="reload-btn"> Try Again!</button>
+				<img class ="vertical" src="{{dataOut}}" width="40%">
 			</div>
+			
+			{% else %}
+			<div class="row">
+        			<button type="submit" class="btn btn-success" id="Verification-btn"> Verify!</button>
+			</div>	
+					
+			{% endif %}			
+
 		</form>		
 	</div>
+	
 
-	<div class="row">
-		<img src="static/Images/face_verification_result.png" width="40%">
-		<h1>This is the result: {{dataOut}} </h1>
-	</div>
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -88,34 +107,15 @@
 
 <script>
 
-	$('input[type="file"]').change(function(e){
+    $('input[type="file"]').change(function(e){
         var fileName = e.target.files[0].name;
         alert('The file "' + fileName +  '" has been selected.');
     });
     
- //    $('#Verification-btn').on('click',function(){
-    
-	//     // obtain name of files    
- //        var knownImage_name = $('#input-knownImage').val().split('\\').pop();
- //        var unknownImage_name = $('#input-unknownImage').val().split('\\').pop();
- //        console.log('known image: "' + knownImage_name +  '"'); 
- //        console.log('Unknown image: "' + unknownImage_name + '"');
-        
- //        // send name of files
-	// 	$.ajax({
-	// 	  type : 'POST',
-	// 	  url : "/verify",
-	// 	  data : $('form').serialize(),
-	// 	  success: function(response) {
- //                console.log(response);
- //          },
- //          error: function(error) {
- //                console.log(error);
- //          }
-	// 	});
-	// });
-  
-	
+    $('#reload-btn').click(function(){
+	    window.location.replace('/');
+    });
+    	
 </script>
 
 </div>
