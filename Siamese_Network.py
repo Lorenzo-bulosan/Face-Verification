@@ -306,27 +306,25 @@ class SiameseFaceNet(object):
 
    
 #%% Main Function 
-def main():
+def main(knownImage_name,unknownImage_name):
 
     # From class above
     fnet = SiameseFaceNet() 
 
     # Folder paths
-    model_dir_path = './models'
+    model_dir_path = './models_v2'
     fnet.load_model(model_dir_path)
     KnownImages_dir_path = "./data/Known-Images"
     UnknownImages_dir_path = "./data/To-Verify"
-       
-
+           
     # Encodings of People to verify against
     database = dict()
-    database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
-    database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
-
+    database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"lorenzo.jpg")]
+    database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"karianne.jpg")]
     
     # Images to test
-    knownImage = KnownImages_dir_path + "/lorenzo.jpg"
-    unknownImage = UnknownImages_dir_path + "/person2_hard.jpg"
+    knownImage = KnownImages_dir_path + '/' + knownImage_name
+    unknownImage = UnknownImages_dir_path + '/' + unknownImage_name
     rgb2gray(unknownImage)
     knownImage_float = cv2.imread(knownImage)
     unknownImage_float = cv2.imread(unknownImage) 
@@ -363,7 +361,12 @@ def main():
     plt.show()   
     
     fig.savefig('face_verification_result.png')
-    
-    
+    fig.savefig('static/Images/face_verification_result.png')
+    return veredict    
+#%% Change parameters here to verify
 if __name__ == '__main__':
-    main()
+	 	
+    knownImage = "karianne.jpg"
+    unknownImage = "person1_makeup.jpg"
+    
+    main(knownImage,unknownImage)

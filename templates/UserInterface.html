@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Face Verification</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+	<style type="text/css">
+
+		body{
+			background-image: url('static/Images/collage-2.jpg');
+		}
+
+		#Main{
+			
+			text-align: center;
+			color: white;
+		}
+
+		.title-container{
+			height: 10em;
+		}
+
+		h1{
+			font-size: 450%;
+		}
+
+		.image-selection{
+			display: flex;
+			flex-direction: column;
+			margin: auto;
+			margin-bottom:0.5%; 
+			width: 35%;
+			/*border: 3px solid grey;*/
+			border-radius: 20px;
+			background-color: white;
+			color: black;
+			opacity: 0.9;
+			text-align: left;
+			padding: 0.75%;
+		}
+
+		.btn-success{
+			font-size: 200%;
+		}
+
+		.row{
+			margin-bottom: 1%;
+		}
+
+	</style>
+</head>
+<body>
+
+<div class="container-fluid row" id="Main">
+
+	<div class="row title-container">
+		<h1> <strong>Face Verification With Siamese Networks</strong> </h1>
+	</div>
+	
+	<div>
+		<form action="/verify" method="post">
+			<div class="image-selection">
+				<h2>Select reference image</h2>
+				<input class="btn btn-info" type="file" name="knownImage" id="input-knownImage">				
+			</div>
+			<div class="image-selection">
+				<h2> Select image you want to verify</h2>
+				<input class="btn btn-info" type="file" name="unknownImage" id="input-unknownImage">				
+			</div>
+			<div class="row">
+				<button type="submit" class="btn btn-success" id="Verification-btn"> Verify!</button>
+			</div>
+		</form>		
+	</div>
+
+	<div class="row">
+		<img src="static/Images/face_verification_result.png" width="40%">
+		<h1>This is the result: {{dataOut}} </h1>
+	</div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+
+	$('input[type="file"]').change(function(e){
+        var fileName = e.target.files[0].name;
+        alert('The file "' + fileName +  '" has been selected.');
+    });
+    
+ //    $('#Verification-btn').on('click',function(){
+    
+	//     // obtain name of files    
+ //        var knownImage_name = $('#input-knownImage').val().split('\\').pop();
+ //        var unknownImage_name = $('#input-unknownImage').val().split('\\').pop();
+ //        console.log('known image: "' + knownImage_name +  '"'); 
+ //        console.log('Unknown image: "' + unknownImage_name + '"');
+        
+ //        // send name of files
+	// 	$.ajax({
+	// 	  type : 'POST',
+	// 	  url : "/verify",
+	// 	  data : $('form').serialize(),
+	// 	  success: function(response) {
+ //                console.log(response);
+ //          },
+ //          error: function(error) {
+ //                console.log(error);
+ //          }
+	// 	});
+	// });
+  
+	
+</script>
+
+</div>
+
+</body>
+</html>
