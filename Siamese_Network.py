@@ -319,12 +319,12 @@ def main(knownImage_name,unknownImage_name):
            
     # Encodings of People to verify against
     database = dict()
-    database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
-    database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
+    database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"lorenzo.jpg")]
+    database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"karianne.jpg")]
     
     # Images to test
-    knownImage = KnownImages_dir_path + knownImage_name
-    unknownImage = UnknownImages_dir_path + unknownImage_name
+    knownImage = KnownImages_dir_path + '/' + knownImage_name
+    unknownImage = UnknownImages_dir_path + '/' + unknownImage_name
     rgb2gray(unknownImage)
     knownImage_float = cv2.imread(knownImage)
     unknownImage_float = cv2.imread(unknownImage) 
@@ -361,13 +361,12 @@ def main(knownImage_name,unknownImage_name):
     plt.show()   
     
     fig.savefig('face_verification_result.png')
-    
-        
-#%%
+    fig.savefig('static/Images/face_verification_result.png')
+    return veredict    
+#%% Change parameters here to verify
 if __name__ == '__main__':
-
-    	
-    knownImage = "/karianne.jpg"
-    unknownImage = "/person1_makeup.jpg"
+	 	
+    knownImage = "karianne.jpg"
+    unknownImage = "person1_makeup.jpg"
     
     main(knownImage,unknownImage)
