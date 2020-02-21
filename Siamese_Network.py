@@ -306,7 +306,7 @@ class SiameseFaceNet(object):
 
    
 #%% Main Function 
-def main(knownImage,unknownImage):
+def main(knownImage_name,unknownImage_name):
 
     # From class above
     fnet = SiameseFaceNet() 
@@ -323,8 +323,8 @@ def main(knownImage,unknownImage):
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
     
     # Images to test
-    knownImage = KnownImages_dir_path + "/karianne.jpg"
-    unknownImage = UnknownImages_dir_path + "/person1_makeup.jpg"
+    knownImage = KnownImages_dir_path + knownImage_name
+    unknownImage = UnknownImages_dir_path + unknownImage_name
     rgb2gray(unknownImage)
     knownImage_float = cv2.imread(knownImage)
     unknownImage_float = cv2.imread(unknownImage) 
@@ -360,7 +360,14 @@ def main(knownImage,unknownImage):
     
     plt.show()   
     
-    fig.savefig('static/Images/face_verification_result.png')
+    fig.savefig('face_verification_result.png')
+    
         
+#%%
 if __name__ == '__main__':
+
+    	
+    knownImage = "/karianne.jpg"
+    unknownImage = "/person1_makeup.jpg"
+    
     main(knownImage,unknownImage)

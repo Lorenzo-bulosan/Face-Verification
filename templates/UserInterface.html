@@ -26,7 +26,7 @@
 			font-size: 450%;
 		}
 
-		form{
+		.image-selection{
 			display: flex;
 			flex-direction: column;
 			margin: auto;
@@ -60,19 +60,19 @@
 	</div>
 	
 	<div>
-		<form>
-			<h2>Select reference image</h2>
-			<input class="btn btn-info" type="file" name="knownImage" id="input-knownImage">
-		</form>
-
-		<form>
-			<h2> Select image you want to verify</h2>
-			<input class="btn btn-info" type="file" name="unknownImage" id="input-unknownImage">
+		<form action="/verify" method="post">
+			<div class="image-selection">
+				<h2>Select reference image</h2>
+				<input class="btn btn-info" type="file" name="knownImage" id="input-knownImage">				
+			</div>
+			<div class="image-selection">
+				<h2> Select image you want to verify</h2>
+				<input class="btn btn-info" type="file" name="unknownImage" id="input-unknownImage">				
+			</div>
+			<div class="row">
+				<button type="submit" class="btn btn-success" id="Verification-btn"> Verify!</button>
+			</div>
 		</form>		
-	</div>
-
-	<div class="row">
-		<button class="btn btn-success" id="Verification-btn"> Verify!</button>
 	</div>
 
 	<div class="row">
@@ -93,27 +93,27 @@
         alert('The file "' + fileName +  '" has been selected.');
     });
     
-    $('#Verification-btn').on('click',function(){
+ //    $('#Verification-btn').on('click',function(){
     
-	// obtain name of files    
-        var knownImage_name = $('#input-knownImage').val().split('\\').pop();
-        var unknownImage_name = $('#input-unknownImage').val().split('\\').pop();
-        console.log('known image: "' + knownImage_name +  '"'); 
-        console.log('Unknown image: "' + unknownImage_name + '"');
+	//     // obtain name of files    
+ //        var knownImage_name = $('#input-knownImage').val().split('\\').pop();
+ //        var unknownImage_name = $('#input-unknownImage').val().split('\\').pop();
+ //        console.log('known image: "' + knownImage_name +  '"'); 
+ //        console.log('Unknown image: "' + unknownImage_name + '"');
         
-        // send name of files
-		$.ajax({
-		  type : 'POST',
-		  url : "/verify",
-		  data : {'data': knownImage_name},
-		  success: function(response) {
-                console.log(response);
-          },
-          error: function(error) {
-                console.log(error);
-          }
-		});
-	});
+ //        // send name of files
+	// 	$.ajax({
+	// 	  type : 'POST',
+	// 	  url : "/verify",
+	// 	  data : $('form').serialize(),
+	// 	  success: function(response) {
+ //                console.log(response);
+ //          },
+ //          error: function(error) {
+ //                console.log(error);
+ //          }
+	// 	});
+	// });
   
 	
 </script>
