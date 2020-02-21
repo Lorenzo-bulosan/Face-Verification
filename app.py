@@ -14,16 +14,18 @@ app = Flask(__name__)
 # Website routes
 @app.route("/")
 def userInterface():
+	K.clear_session()
 	return render_template('UserInterface.html')
 
 @app.route("/verify", methods=['POST'])
 def verify():
 	knownImage = request.form.get('knownImage')
 	unknownImage = request.form.get('unknownImage')
+	imageResult = ''
 	
-	result = main(knownImage,unknownImage)   
-	imageResult = "static/Images/face_verification_result.png"
-	
+	if knownImage and unknownImage:
+		imageResult = main(knownImage,unknownImage) # verifies if image is within threshold and produces imageResult
+		
 	return render_template('UserInterface.html', dataOut = imageResult)
 
 if __name__ == "__main__":
