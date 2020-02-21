@@ -319,7 +319,7 @@ def main(knownImage_name,unknownImage_name):
            
     # Encodings of People to verify against
     database = dict()
-    database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"lorenzo.jpg")]
+    database["Lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"lorenzo.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"karianne.jpg")]
     
     # Images to test
@@ -362,7 +362,9 @@ def main(knownImage_name,unknownImage_name):
     
     fig.savefig('face_verification_result.png')
     fig.savefig('static/Images/face_verification_result.png')
+    
     return veredict    
+
 #%% Change parameters here to verify
 if __name__ == '__main__':
 	 	

@@ -18,14 +18,13 @@ def userInterface():
 
 @app.route("/verify", methods=['POST'])
 def verify():
-	image1 = request.form['knownImage']
-	image2 = request.form['unknownImage']
+	knownImage = request.form.get('knownImage')
+	unknownImage = request.form.get('unknownImage')
 	
-	knownImage = "karianne.jpg"
-	unknownImage = "person1_makeup.jpg"
 	result = main(knownImage,unknownImage)   
+	imageResult = "static/Images/face_verification_result.png"
 	
-	return render_template('UserInterface.html', dataOut = result)
+	return render_template('UserInterface.html', dataOut = imageResult)
 
 if __name__ == "__main__":
 	app.run()
