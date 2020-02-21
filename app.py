@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Feb 19 17:59:17 2020
-
 @author: lorenzo 
 """
-
 from flask import Flask, render_template, request, json
 import matplotlib as plt
 from Siamese_Network import main
@@ -20,8 +18,8 @@ def userInterface():
 
 @app.route("/verify", methods=['POST'])
 def verify():
-	knownImage = str(request.form['knownImage'])
-	unknownImage = str(request.form['unknownImage'])
+	image1 = request.form['knownImage']
+	image2 = request.form['unknownImage']
 	
 	knownImage = "karianne.jpg"
 	unknownImage = "person1_makeup.jpg"
