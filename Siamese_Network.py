@@ -322,6 +322,8 @@ def main(knownImage_name,unknownImage_name):
     database = dict()
     database["Lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"lorenzo.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + '/' +"karianne.jpg")]
+    database["taner"] = [fnet.img_to_encoding(KnownImages_dir_path + "/taner.jpeg")]
+    database["gwen"] = [fnet.img_to_encoding(KnownImages_dir_path + "/gwen.jpeg")]
     
     # Images to test
     knownImage = KnownImages_dir_path + '/' + knownImage_name

@@ -23,10 +23,13 @@ def main():
     # Encodings of People to verify against
     database = dict()
     database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/lorenzo.jpg")]
+    database["lorenzo"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
     database["karianne"] = [fnet.img_to_encoding(KnownImages_dir_path + "/karianne.jpg")]
-
+    database["taner"] = [fnet.img_to_encoding(KnownImages_dir_path + "/taner.jpeg")]
+    database["gwen"] = [fnet.img_to_encoding(KnownImages_dir_path + "/gwen.jpeg")]
+    
     # Train given database
-    fnet.fit(database=database,model_dir_path=model_dir_path, epochs=400, batch_size=1, threshold=0.15)
+    fnet.fit(database=database,model_dir_path=model_dir_path, epochs=400, batch_size=2, threshold=0.15)
     
 
 #%% Calling main
