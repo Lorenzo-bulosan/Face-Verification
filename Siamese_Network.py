@@ -343,7 +343,7 @@ def main(knownImage_name,unknownImage_name):
     print(dist)
     print(is_valid)
     
-    #fnet.who_is_it(unknownImage, database)
+    fnet.who_is_it(unknownImage, database)
     
     # Set up figure
     fig = plt.figure('Compare images')
@@ -375,7 +375,7 @@ def main(knownImage_name,unknownImage_name):
 if __name__ == '__main__':
 	 	
     knownImage = "karianne.jpg"
-    unknownImage = "person1_makeup.jpg"
+    unknownImage = "person5.jpeg"
     
     main(knownImage,unknownImage)
     
