@@ -305,7 +305,7 @@ class SiameseFaceNet(object):
 
         return min_dist, identity
 
-   
+
 #%% Main Function 
 def main(knownImage_name,unknownImage_name):
 
